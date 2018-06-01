@@ -12,15 +12,15 @@ ODT, ODS, ODP, DOC, XLS, PPT, PPS, EPUB, RTF, HTML, HTM.
 
 ## Installing ONLYOFFICE Document Server
 
-You will need an instance of ONLYOFFICE Document Server that is resolvable and connectable both from ownCloud/Nextcloud and any end clients (version 4.2.7 and later are supported for use with the app). If that is not the case, use the official ONLYOFFICE Document Server documentation page: [Document Server for Linux](http://helpcenter.onlyoffice.com/server/linux/document/linux-installation.aspx). ONLYOFFICE Document Server must also be able to POST to ownCloud/Nextcloud directly.
+You will need an instance of ONLYOFFICE Document Server that is resolvable and connectable both from your Moodle server and any end clients (version 4.2.7 and later are supported for use with the plugin). If that is not the case, use the official ONLYOFFICE Document Server documentation page: [Document Server for Linux](http://helpcenter.onlyoffice.com/server/linux/document/linux-installation.aspx). ONLYOFFICE Document Server must also be able to POST to your Moodle server directly.
 
-The easiest way to start an instance of ONLYOFFICE Document Server is to use [Docker](https://github.com/ONLYOFFICE/Docker-DocumentServer). Further information on various platforms is available at https://helpcenter.onlyoffice.com/server/document.aspx
+The easiest way to start an instance of ONLYOFFICE Document Server is to use [Docker](https://github.com/ONLYOFFICE/Docker-DocumentServer). Further information on ONLYOFFICE Document Server packages for various platforms is available at https://helpcenter.onlyoffice.com/server/document.aspx
 
 ## Installing the Moodle ONLYOFFICE Integration plugin
 
 This plugin is an __activity module__.
 
-Follow the usual Moodle plugin installation steps to install this plugin into your __mod/onlyoffice directory__.
+Follow the usual Moodle plugin installation steps to install this plugin into your __mod/onlyoffice__ directory.
 
 
 ## Configuring the Moodle ONLYOFFICE Integration plugin
