@@ -1,0 +1,12 @@
+#page-content .onlyoffice .activityinstance > a {
+    display: inline-block;
+}
+
+.onlyoffice-container > iframe {
+    height: 80vh;
+    max-height: 60rem;
+}
+
+#onlyoffice-editor.error {
+    color: red;
+}
