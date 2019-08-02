@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -112,7 +111,7 @@ class editor {
         $devicetype = \core_useragent::get_device_type();
         $devicetype = $devicetype == 'tablet' || $devicetype == 'mobile' ? 'mobile' : 'desktop';
 
-        
+
         // package config object from parts
         $config['type'] = $devicetype;
         $config['document'] = $document;
@@ -125,4 +124,5 @@ class editor {
         }
         return $config;
     }
+
 }

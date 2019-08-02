@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,9 +22,12 @@
  * @author      Olumuyiwa Taiwo {@link https://moodle.org/user/view.php?id=416594}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define('AJAX_SCRIPT', true);
-
+/**
+ * @todo Log disconnection (editor close) for respective user. note, editor open (connection) is logged in view.php
+ */
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
+
+define('AJAX_SCRIPT', true);
 
 $doc = required_param('doc', PARAM_RAW);
 header('Content-Type: application/json; charset=utf-8');
@@ -50,21 +52,18 @@ if (empty($doc)) {
 $crypt = new \mod_onlyoffice\crypt();
 list($hash, $error) = $crypt->read_hash($doc);
 
-if ($error || $hash == NULL) {
+if ($error || $hash == null) {
     die(json_encode($response));
 }
 
 $request = file_get_contents('php://input');
-if ($request === FALSE) {
+if ($request === false) {
     die(json_encode($response));
 }
 
 $data = json_decode($request, true);
 
-/**
- * @todo Log disconnection (editor close) for respective user. note, editor open (connection) is logged in view.php
- */
-if ($data === NULL) {
+if ($data === null) {
     die(json_encode($response));
 }
 
@@ -77,7 +76,7 @@ if (isset($data['status'])) {
 
         case mod_onlyoffice\util::STATUS_MUSTSAVE:
         case mod_onlyoffice\util::STATUS_CORRUPTED:
-            // save to Moodle
+            // Save to Moodle.
             $downloadurl = $data['url'];
             $fs = get_file_storage();
             if ($file = $fs->get_file_by_hash($hash->pathnamehash)) {
@@ -95,19 +94,15 @@ if (isset($data['status'])) {
 
                 $file->replace_file_with($newfile);
                 $newfile->delete();
-                // generate new key
+                // Generate new key.
                 try {
                     \mod_onlyoffice\document::set_key($hash->cm);
                     $response['error'] = 0;
-                }
-                catch (\moodle_exception $e) {
+                } catch (\moodle_exception $e) {
                     $response['error'] = 1;
                 }
-                /**
-                 * @todo Log document saved with new key
-                 */
-            }
-            else {
+                // TODO: Log document saved with new key
+            } else {
                 $response['error'] = 1;
             }
             break;

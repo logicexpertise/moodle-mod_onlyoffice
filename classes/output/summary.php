@@ -25,22 +25,29 @@
  */
 namespace mod_onlyoffice\output;
 
-defined('MOODLE_INTERNAL') || die();
-
-use plugin_renderer_base;
+use renderable;
+use templatable;
+use renderer_base;
+use stdClass;
 
 /**
  * @todo Custom module instance display, similar to https://api.onlyoffice.com/editors/alfresco
  */
-class renderer extends plugin_renderer_base {
-
+/**
+ * class containing data form instance display
+ * 
+ */
+class summary implements renderable, templatable {
     /**
-     * Returns html to display the content of mod_folder
+     * export data for mustache template
+     * @param renderer_base $output
+     * @return stdClass
      */
-    public function render_summary($page) {
-        $data = $page->export_for_template($this);
-        return parent::render_from_template('mod_onlyoffice/summary', $data);
+    public function export_for_template(renderer_base $output) {
+        $data = new stdClass();
         
+        // do some stuff
+        
+        return $data;
     }
-
 }

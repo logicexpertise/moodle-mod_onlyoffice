@@ -1,4 +1,5 @@
 <?php
+//
 
 namespace mod_onlyoffice\JWT;
 

@@ -30,9 +30,9 @@ class document {
 
     public static function get_key($cm) {
         global $DB;
-        if (!$key = $DB->get_field('onlyoffice', 'documentkey', array('id' => $cm->instance))) {
+        if (!$key = $DB->get_field('onlyoffice', 'documentkey', ['id' => $cm->instance])) {
             $key = random_string(20);
-            $DB->set_field('onlyoffice', 'documentkey', $key, array('id' => $cm->instance));
+            $DB->set_field('onlyoffice', 'documentkey', $key, ['id' => $cm->instance]);
         }
         return $key;
     }
@@ -40,14 +40,14 @@ class document {
     public static function set_key($cm) {
         global $DB;
         $key = random_string(20);
-        $DB->set_field('onlyoffice', 'documentkey', $key, array('id' => $cm->instance));
+        $DB->set_field('onlyoffice', 'documentkey', $key, ['id' => $cm->instance]);
     }
 
     public static function get_permissions($context, $cm) {
         global $DB;
         $canmanage = has_capability('moodle/course:manageactivities', $context);
         $canedit = has_capability('mod/onlyoffice:editdocument', $context);
-        $editorperms = $DB->get_field('onlyoffice', 'permissions', array('id' => $cm->instance));
+        $editorperms = $DB->get_field('onlyoffice', 'permissions', ['id' => $cm->instance]);
         $permissions = \array_map('boolval', unserialize($editorperms));
         $permissions['print'] = empty($permissions['print']) ? $canmanage : true;
         $permissions['download'] = empty($permissions['download']) ? $canmanage : true;

@@ -99,8 +99,7 @@ class JWT {
         if (is_array($key) || $key instanceof \ArrayAccess) {
             if (isset($header->kid)) {
                 $key = $key[$header->kid];
-            }
-            else {
+            } else {
                 throw new UnexpectedValueException('"kid" empty, unable to lookup correct key');
             }
         }
@@ -195,8 +194,7 @@ class JWT {
                 $success = openssl_sign($msg, $signature, $key, $algorithm);
                 if (!$success) {
                     throw new DomainException("OpenSSL unable to sign data");
-                }
-                else {
+                } else {
                     return $signature;
                 }
         }
@@ -226,8 +224,7 @@ class JWT {
                 $success = openssl_verify($msg, $signature, $key, $algorithm);
                 if (!$success) {
                     throw new DomainException("OpenSSL unable to verify data: " . openssl_error_string());
-                }
-                else {
+                } else {
                     return $signature;
                 }
             case 'hash_hmac':
@@ -264,8 +261,7 @@ class JWT {
              * strings, rather than the PHP default behaviour of converting them to floats.
              */
             $obj = json_decode($input, false, 512, JSON_BIGINT_AS_STRING);
-        }
-        else {
+        } else {
             /** Not all servers will support that, however, so for older versions we must
              * manually detect large ints in the JSON string and quote them (thus converting
              * them to strings) before decoding, hence the preg_replace() call.
@@ -277,8 +273,7 @@ class JWT {
 
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             static::handleJsonError($errno);
-        }
-        elseif ($obj === null && $input !== 'null') {
+        } elseif ($obj === null && $input !== 'null') {
             throw new DomainException('Null result with non-null input');
         }
         return $obj;
@@ -297,8 +292,7 @@ class JWT {
         $json = json_encode($input);
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             static::handleJsonError($errno);
-        }
-        elseif ($json === 'null' && $input !== null) {
+        } elseif ($json === 'null' && $input !== null) {
             throw new DomainException('Null result with non-null input');
         }
         return $json;

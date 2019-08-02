@@ -48,7 +48,7 @@ class util {
     }
 
     public static function save_document_permissions($data) {
-        $permissions = array();
+        $permissions = [];
         if (!empty($data->download)) {
             $permissions['download'] = 1;
         }
@@ -64,7 +64,7 @@ class util {
 
         $context = \context_module::instance($cmid);
         if ($draftitemid) {
-            $options = array('subdirs' => false);
+            $options = ['subdirs' => false];
             file_save_draft_area_files($draftitemid, $context->id, 'mod_onlyoffice', 'content', 0, $options);
         }
     }
