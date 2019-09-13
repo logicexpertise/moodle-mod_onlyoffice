@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -27,7 +28,7 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 
-define('AJAX_SCRIPT', true);
+defined('AJAX_SCRIPT') or define('AJAX_SCRIPT', true);
 
 $doc = required_param('doc', PARAM_RAW);
 header('Content-Type: application/json; charset=utf-8');
@@ -43,7 +44,6 @@ $response = [];
 $response['status'] = 'success';
 $response['error'] = 1;
 
-$response['error'] = 1;
 if (empty($doc)) {
     $response['error'] = 'Bad request';
     die(json_encode($response));
@@ -74,8 +74,9 @@ if (isset($data['status'])) {
             $response['error'] = 1;
             break;
 
+        case mod_onlyoffice\util::STATUS_ERRORSAVING:
         case mod_onlyoffice\util::STATUS_MUSTSAVE:
-        case mod_onlyoffice\util::STATUS_CORRUPTED:
+        case mod_onlyoffice\util::STATUS_FORCESAVE:
             // Save to Moodle.
             $downloadurl = $data['url'];
             $fs = get_file_storage();
@@ -107,11 +108,8 @@ if (isset($data['status'])) {
             }
             break;
 
-        case mod_onlyoffice\util::STATUS_FORCESAVE:
         case mod_onlyoffice\util::STATUS_ERRORFORCESAVE:
-
-            $response['error'] = 0;
-
+            $response['error'] = 1;
             break;
 
         case mod_onlyoffice\util::STATUS_EDITING:
