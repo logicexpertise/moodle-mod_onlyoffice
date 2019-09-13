@@ -31,6 +31,8 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
+require_once(__DIR__ . '/vendor/autoload.php');
+
 use mod_onlyoffice\util;
 
 /**

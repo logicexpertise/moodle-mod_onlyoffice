@@ -33,7 +33,7 @@ class util {
     const STATUS_NOTFOUND = 0;
     const STATUS_EDITING = 1;
     const STATUS_MUSTSAVE = 2;
-    const STATUS_CORRUPTED = 3;
+    const STATUS_ERRORSAVING = 3;
     const STATUS_CLOSEDNOCHANGES = 4;
     const STATUS_FORCESAVE = 6;
     const STATUS_ERRORFORCESAVE = 7;

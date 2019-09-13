@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use mod_onlyoffice\crypt;
 use mod_onlyoffice\document;
-use mod_onlyoffice\JWT\JWT;
+use Firebase\JWT\JWT;
 
 class editor {
 
@@ -101,6 +101,7 @@ class editor {
 
         // customization
         $customization = [];
+        $customization['goback']['blank'] = false;
         $customization['goback']['text'] = get_string('returntodocument', 'onlyoffice');
         $customization['goback']['url'] = $CFG->wwwroot . '/course/view.php?id=' . $this->course->id;
         $customization['forcesave'] = true;
