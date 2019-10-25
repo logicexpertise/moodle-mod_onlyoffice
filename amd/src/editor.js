@@ -29,16 +29,20 @@ define(['jquery'], function ($) {
             });
         });
     };
+
     return {
-        init: function (config) {
+        init: function (courseid, cmid) {
             if (typeof DocsAPI === "undefined") {
-                displayError(('docserverunreachable'));
+                displayError('docserverunreachable');
                 return;
             }
-            if (config.errors) {
-                displayError(config.errors);
-            }
-            var docEditor = new DocsAPI.DocEditor("onlyoffice-editor", config);
+            var ajax_url = M.cfg.wwwroot + '/mod/onlyoffice/dsconfig.php';
+            $.getJSON(ajax_url, {
+                courseid: courseid,
+                cmid: cmid
+            }).done(function (config) {
+                var docEditor = new DocsAPI.DocEditor("onlyoffice-editor", config);
+            });
         }
     };
 });

@@ -68,5 +68,40 @@ class util {
             file_save_draft_area_files($draftitemid, $context->id, 'mod_onlyoffice', 'content', 0, $options);
         }
     }
-    
+
+    public static function get_connection_info($url) {
+        $ch = new \curl();
+        $ch->get($url);
+        $info = $ch->get_info();
+        return $info;
+    }
+
+    public static function save_document_to_moodle($data, $hash) {
+        $downloadurl = $data['url'];
+        $fs = get_file_storage();
+        if ($file = $fs->get_file_by_hash($hash->pathnamehash)) {
+            $fr = array(
+                'contextid' => $file->get_contextid(),
+                'component' => $file->get_component(),
+                'filearea' => 'draft',
+                'itemid' => $file->get_itemid(),
+                'filename' => $file->get_filename() . '_temp',
+                'filepath' => '/',
+                'userid' => $file->get_userid(),
+                'timecreated' => $file->get_timecreated());
+            try {
+                $newfile = $fs->create_file_from_url($fr, $downloadurl);
+                $file->replace_file_with($newfile);
+                $file->set_timemodified(time());
+                $newfile->delete();
+                \mod_onlyoffice\document::set_key($hash->cm);
+                return true;
+            } catch (\moodle_exception $e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

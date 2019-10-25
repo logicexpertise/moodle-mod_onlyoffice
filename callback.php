@@ -74,40 +74,17 @@ if (isset($data['status'])) {
             $response['error'] = 1;
             break;
 
-        case mod_onlyoffice\util::STATUS_ERRORSAVING:
         case mod_onlyoffice\util::STATUS_MUSTSAVE:
         case mod_onlyoffice\util::STATUS_FORCESAVE:
             // Save to Moodle.
-            $downloadurl = $data['url'];
-            $fs = get_file_storage();
-            if ($file = $fs->get_file_by_hash($hash->pathnamehash)) {
-                $fr = array(
-                    'contextid' => $file->get_contextid(),
-                    'component' => $file->get_component(),
-                    'filearea' => 'draft',
-                    'itemid' => $file->get_itemid(),
-                    'filename' => $file->get_filename(),
-                    'filepath' => '/',
-                    'userid' => $file->get_userid(),
-                    'timecreated' => $file->get_timecreated(),
-                    'timemodified' => time());
-                $newfile = $fs->create_file_from_url($fr, $downloadurl);
-
-                $file->replace_file_with($newfile);
-                $newfile->delete();
-                // Generate new key.
-                try {
-                    \mod_onlyoffice\document::set_key($hash->cm);
-                    $response['error'] = 0;
-                } catch (\moodle_exception $e) {
-                    $response['error'] = 1;
-                }
-                // TODO: Log document saved with new key
+            if (mod_onlyoffice\util::save_document_to_moodle($data, $hash)) {
+                $response['error'] = 0;
             } else {
                 $response['error'] = 1;
             }
             break;
 
+        case mod_onlyoffice\util::STATUS_ERRORSAVING:
         case mod_onlyoffice\util::STATUS_ERRORFORCESAVE:
             $response['error'] = 1;
             break;
@@ -122,3 +99,4 @@ if (isset($data['status'])) {
     }
 }
 die(json_encode($response));
+

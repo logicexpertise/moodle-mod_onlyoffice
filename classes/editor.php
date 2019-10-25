@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -33,14 +34,14 @@ use Firebase\JWT\JWT;
 
 class editor {
 
-    var $course;
+    var $courseid;
     var $context;
     var $cm;
     var $modconfig;
     var $file;
 
-    public function __construct($course, $context, $cm, $modconfig) {
-        $this->course = $course;
+    public function __construct($courseid, $context, $cm, $modconfig) {
+        $this->courseid = $courseid;
         $this->context = $context;
         $this->cm = $cm;
         $this->modconfig = $modconfig;
@@ -53,6 +54,9 @@ class editor {
         }
     }
 
+    /**
+     * @todo Warn if document is in format needing conversion. Send to ONLYOFFICE conversion service for conversion and overwrite current version before opening in editor
+     */
     public function config() {
         /*
          * Note: It is important to preserv the case (camelCase) of the $config 
@@ -71,14 +75,14 @@ class editor {
 
         // top level config object
         $config = [];
-        $crypt = new \mod_onlyoffice\crypt();
+        $crypt = new crypt();
 
         // document
         $document = [];
         $filename = $file->get_filename();
         $path = '/' . $this->context->id . '/mod_onlyoffice/content' . $file->get_filepath() . $filename;
-        $hash = $crypt->get_hash(['userid' => $USER->id, 'contenthash' => $file->get_contenthash()]);
-        $documenturl = $CFG->wwwroot . '/pluginfile.php' . $path . '?doc=' . $hash;
+        $contenthash = $crypt->get_hash(['userid' => $USER->id, 'contenthash' => $file->get_contenthash()]);
+        $documenturl = $CFG->wwwroot . '/pluginfile.php' . $path . '?doc=' . $contenthash;
 
         $document['url'] = $documenturl;
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
@@ -89,9 +93,8 @@ class editor {
 
         // editorconfig
         $editorconfig = [];
-        $filename = !empty($filename) ? $filename : '';
-        $hash = $crypt->get_hash(['userid' => $USER->id, 'pathnamehash' => $file->get_pathnamehash(), 'cm' => $this->cm]);
-        $editorconfig['callbackUrl'] = $CFG->wwwroot . '/mod/onlyoffice/callback.php?doc=' . $hash;
+        $pathnamehash = $crypt->get_hash(['userid' => $USER->id, 'pathnamehash' => $file->get_pathnamehash(), 'cm' => $this->cm]);
+        $editorconfig['callbackUrl'] = $CFG->wwwroot . '/mod/onlyoffice/callback.php?doc=' . $pathnamehash;
 
         // user
         $user = [];
@@ -103,15 +106,18 @@ class editor {
         $customization = [];
         $customization['goback']['blank'] = false;
         $customization['goback']['text'] = get_string('returntodocument', 'onlyoffice');
-        $customization['goback']['url'] = $CFG->wwwroot . '/course/view.php?id=' . $this->course->id;
+        $customization['goback']['url'] = $CFG->wwwroot . '/course/view.php?id=' . $this->courseid;
         $customization['forcesave'] = true;
         $customization['commentAuthorOnly'] = true;
         $editorconfig['customization'] = $customization;
 
         // device type
         $devicetype = \core_useragent::get_device_type();
-        $devicetype = $devicetype == 'tablet' || $devicetype == 'mobile' ? 'mobile' : 'desktop';
-
+        if ($devicetype == 'tablet' || $devicetype == 'mobile') {
+            $devicetype = 'mobile';
+        } else {
+            $devicetype = 'desktop';
+        }
 
         // package config object from parts
         $config['type'] = $devicetype;
