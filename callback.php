@@ -27,6 +27,8 @@
  * @todo Log disconnection (editor close) for respective user. note, editor open (connection) is logged in view.php
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
+require_once($CFG->dirroot.'/mod/onlyoffice/vendor/firebase/php-jwt/src/JWT.php');
+use Firebase\JWT\JWT;
 
 defined('AJAX_SCRIPT') or define('AJAX_SCRIPT', true);
 
@@ -67,6 +69,30 @@ if ($data === null) {
     die(json_encode($response));
 }
 
+$modconfig = get_config('onlyoffice');
+if (!empty($modconfig->documentserversecret)) {
+    $inHeader = false;
+    if (!empty($data["token"])) {
+        $token = JWT::decode( $data["token"], $modconfig->documentserversecret, ['HS256', 'HS512', 'HS384',  'RS256', 'RS384',  'RS512']);
+
+    } elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+        $token = JWT::decode(substr($_SERVER['HTTP_AUTHORIZATION'], strlen("Bearer ")), $modconfig->documentserversecret );
+        $inHeader = true;
+    } else {
+        $result["error"] = "Expected JWT";
+        return $result;
+    }
+
+    if (empty($token)) {
+        $result["error"] = "Invalid JWT signature";
+        return $result;
+    }
+
+    $data = (array)$token;
+
+    if ($inHeader) $data = $data["payload"];
+}
+
 if (isset($data['status'])) {
     $status = (int) $data['status'];
     switch ($status) {
@@ -99,4 +125,3 @@ if (isset($data['status'])) {
     }
 }
 die(json_encode($response));
-
