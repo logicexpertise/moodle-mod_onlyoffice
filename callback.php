@@ -73,12 +73,7 @@ $modconfig = get_config('onlyoffice');
 if (!empty($modconfig->documentserversecret)) {
     $inHeader = false;
     if (!empty($data["token"])) {
-<<<<<<< HEAD
         $token = JWT::decode( $data["token"], $modconfig->documentserversecret, ['HS256', 'HS512', 'HS384',  'RS256', 'RS384',  'RS512']);
-=======
-        $token = JWT::decode( $data["token"], $modconfig->documentserversecret, ['HS256', 'SHA256']);
->>>>>>> f31fbf9ef94cb843f6997ab323c77e02703963e1
-
     } elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
         $token = JWT::decode(substr($_SERVER['HTTP_AUTHORIZATION'], strlen("Bearer ")), $modconfig->documentserversecret );
         $inHeader = true;
