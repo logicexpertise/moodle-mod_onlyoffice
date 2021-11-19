@@ -31,8 +31,7 @@ class document {
     public static function get_key($cm) {
         global $DB;
         if (!$key = $DB->get_field('onlyoffice', 'documentkey', ['id' => $cm->instance])) {
-            $key = random_string(20);
-            $DB->set_field('onlyoffice', 'documentkey', $key, ['id' => $cm->instance]);
+            $key = static::set_key($cm);
         }
         return $key;
     }
@@ -41,6 +40,7 @@ class document {
         global $DB;
         $key = random_string(20);
         $DB->set_field('onlyoffice', 'documentkey', $key, ['id' => $cm->instance]);
+        return $key;
     }
 
     public static function get_permissions($context, $cm) {

@@ -5,7 +5,7 @@ This plugin enables multiple users to collaboratively edit office documents from
 Currently the following document formats can be edited with this plugin: 
 DOCX, XLSX, PPTX, TXT, CSV. 
 
-The above mentioned formats are also available for viewing together with PDF. 
+The above mentioned formats are also available for viewing, as well as PDF. 
 
 The edited files of the corresponding type can be converted into the Office Open XML formats: 
 ODT, ODS, ODP, DOC, XLS, PPT, PPS, EPUB, RTF, HTML, HTM.
@@ -22,7 +22,6 @@ This plugin is an __activity module__.
 
 Follow the usual Moodle plugin installation steps to install this plugin into your __mod/onlyoffice__ directory.
 
-
 ## Configuring the Moodle ONLYOFFICE Integration plugin
 
 ## Document Server Address
@@ -33,7 +32,7 @@ Once the plugin is installed, you will need to tell it your ONLYOFFICE Document 
 
 You can set a *secret* to be used for generating a *token* that the Document Server will use to verify commands from the client/editor. Refer to https://api.onlyoffice.com/editors/signature/ if you decide to use a secret.
 
-The secret is not required in order for the plugin to work. 
+The secret is not required in order for the plugin to work. However you must use a secret if your ONLYOFFICE Document Server is configured to use a token. The secret must match the secret configured on the ONLYOFFICE Document Server.
 
 ## Using the Moodle ONLYOFFICE Integration plugin
 
@@ -41,4 +40,4 @@ Once installed, you can add instances of ONLYOFFICE activity to your course page
 
 Admins/Teachers can choose whether or not documents can be downloaded or printed from inside the ONLYOFFICE editor.
 
-Clicking the activity name/link in the course page opens the *ONLYOFFICE editor* in the user's browser, ready for collaborative editing
+Clicking the activity name/link in the course page opens the *ONLYOFFICE editor* in the user's browser, ready for collaborative editing.
