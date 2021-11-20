@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -54,5 +53,3 @@ $string['print_desc'] = 'Allow documents to be printed via the OnlyOffice editor
 
 $string['returntodocument'] = 'Return to course page';
 $string['docserverunreachable'] = 'ONLYOFFICE Document Server cannot be reached. Please contact admin';
-
-

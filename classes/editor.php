@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -34,11 +33,11 @@ use Firebase\JWT\JWT;
 
 class editor {
 
-    var $courseid;
-    var $context;
-    var $cm;
-    var $modconfig;
-    var $file;
+    private $courseid;
+    private $context;
+    private $cm;
+    private $modconfig;
+    private $file;
 
     public function __construct($courseid, $context, $cm, $modconfig) {
         $this->courseid = $courseid;
@@ -55,13 +54,12 @@ class editor {
     }
 
     /**
-     * @todo Warn if document is in format needing conversion. Send to ONLYOFFICE conversion service for conversion and overwrite current version before opening in editor
+     * @todo Warn if document is in format needing conversion and send to ONLYOFFICE conversion service for conversion and overwrite current version before opening in editor
+     * @todo Give user option to continue or abort
      */
     public function config() {
         /*
-         * Note: It is important to preserv the case (camelCase) of the $config 
-         * array keys, as they are used in the config passed to JS
-         * 
+         * Note: It is important to preserve the case (camelCase) of the $config array keys, as they are used in the config passed to JS
          * Note: Error "too many parameters passed to js_init_call()" occurs in DEBUG_DEVELOPER. See MDL-57614, MDL-62468
          */
 

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -29,6 +28,8 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
 
     $defaulthost = 'https://documentserver.url';
-    $settings->add(new admin_setting_configtext('onlyoffice/documentserverurl', get_string('documentserverurl', 'onlyoffice'), get_string('documentserverurl_desc', 'onlyoffice'), $defaulthost));
-    $settings->add(new admin_setting_configtext('onlyoffice/documentserversecret', get_string('documentserversecret', 'onlyoffice'), get_string('documentserversecret_desc', 'onlyoffice'), ''));
+    $settings->add(new admin_setting_configtext('onlyoffice/documentserverurl', get_string('documentserverurl', 'onlyoffice'),
+            get_string('documentserverurl_desc', 'onlyoffice'), $defaulthost));
+    $settings->add(new admin_setting_configtext('onlyoffice/documentserversecret', get_string('documentserversecret', 'onlyoffice'),
+            get_string('documentserversecret_desc', 'onlyoffice'), ''));
 }

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -61,9 +60,8 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading($cm->name);
 echo html_writer::start_div('', array('class' => 'onlyoffice-container')); // start onlyoffice-container
 $documentserverurl = get_config('onlyoffice', 'documentserverurl');
-if (!isset($documentserverurl) ||
-        empty($documentserverurl) ||
-        \mod_onlyoffice\util::get_connection_info($documentserverurl)['http_code'] != 200) {
+if (!isset($documentserverurl) || empty($documentserverurl) || \mod_onlyoffice\util::get_connection_info($documentserverurl)['http_code'] !=
+        200) {
     echo $OUTPUT->notification(get_string('docserverunreachable', 'onlyoffice'), 'error');
 } else {
     echo html_writer::div('', '', array('id' => 'onlyoffice-editor'));

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,6 +22,7 @@
  * @author      Olumuyiwa Taiwo {@link https://moodle.org/user/view.php?id=416594}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace mod_onlyoffice\output;
 
 defined('MOODLE_INTERNAL') || die();
@@ -40,7 +40,6 @@ class renderer extends plugin_renderer_base {
     public function render_summary($page) {
         $data = $page->export_for_template($this);
         return parent::render_from_template('mod_onlyoffice/summary', $data);
-        
     }
 
 }

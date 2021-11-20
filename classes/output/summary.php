@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,6 +22,7 @@
  * @author      Olumuyiwa Taiwo {@link https://moodle.org/user/view.php?id=416594}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace mod_onlyoffice\output;
 
 use renderable;
@@ -33,11 +33,12 @@ use stdClass;
 /**
  * @todo Custom module instance display, similar to https://api.onlyoffice.com/editors/alfresco
  */
+
 /**
  * class containing data form instance display
- * 
  */
 class summary implements renderable, templatable {
+
     /**
      * export data for mustache template
      * @param renderer_base $output
@@ -45,9 +46,10 @@ class summary implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         $data = new stdClass();
-        
+
         // do some stuff
-        
+
         return $data;
     }
+
 }

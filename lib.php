@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -78,7 +77,8 @@ function onlyoffice_add_instance(stdClass $data, mod_onlyoffice_mod_form $mform 
     // we need to use context now, so we need to make sure all needed info is already in db
     $DB->set_field('course_modules', 'instance', $data->id, array('id' => $cmid));
 
-    $completiontimeexpected = !empty($data->completionexpected) ? $data->completionexpected : null;
+    $completiontimeexpected = !empty($data->completionexpected) ? $data->completionexpected
+                : null;
     \core_completion\api::update_completion_date_event($cmid, 'onlyoffice', $data->id, $completiontimeexpected);
 
     return $data->id;
@@ -104,7 +104,8 @@ function onlyoffice_update_instance(stdClass $data, mod_onlyoffice_mod_form $mfo
     util::save_document_permissions($data);
     util::save_file($data);
 
-    $completiontimeexpected = !empty($data->completionexpected) ? $data->completionexpected : null;
+    $completiontimeexpected = !empty($data->completionexpected) ? $data->completionexpected
+                : null;
     \core_completion\api::update_completion_date_event($data->coursemodule, 'onlyoffice', $data->id, $completiontimeexpected);
 
     $result = $DB->update_record('onlyoffice', $data);
@@ -155,7 +156,7 @@ function onlyoffice_get_coursemodule_info($coursemodule) {
     $context = \context_module::instance($coursemodule->id);
 
     if (!$onlyoffice = $DB->get_record('onlyoffice', array('id' => $coursemodule->instance), 'id, name, display, displayoptions, intro, introformat')) {
-        return NULL;
+        return null;
     }
 
     $info = new cached_cm_info();
@@ -194,7 +195,7 @@ function onlyoffice_cm_info_view(cm_info $cm) {
  * @param cm_info $cm
  */
 function onlyoffice_cm_info_dynamic(cm_info $cm) {
-    
+    // @todo Custom module instance display, similar to https://api.onlyoffice.com/editors/alfresco
 }
 
 /**
@@ -213,7 +214,6 @@ function onlyoffice_cm_info_dynamic(cm_info $cm) {
  * @return stdClass|null
  */
 function onlyoffice_user_outline($course, $user, $mod, $onlyoffice) {
-
     $return = new stdClass();
     $return->time = 0;
     $return->info = '';
@@ -221,26 +221,10 @@ function onlyoffice_user_outline($course, $user, $mod, $onlyoffice) {
 }
 
 /**
- * Prints a detailed representation of what a user has done with
- * a given particular instance of this module, for user activity reports.
- *
- * It is supposed to echo directly without returning a value.
- * @todo Implement this function
- * @param stdClass $course the current course record
- * @param stdClass $user the record of the user we are generating report for
- * @param cm_info $mod course module info
- * @param stdClass $onlyoffice the module instance record
- */
-function onlyoffice_user_complete($course, $user, $mod, $onlyoffice) {
-    
-}
-
-/**
  * Given a course and a time, this module should find recent activity
  * that has occurred in onlyoffice activities and print it out.
  *
  * @todo implement
- * 
  * @param stdClass $course The course record
  * @param bool $viewfullnames Should we display full names
  * @param int $timestart Print activity since this timestamp
@@ -248,40 +232,6 @@ function onlyoffice_user_complete($course, $user, $mod, $onlyoffice) {
  */
 function onlyoffice_print_recent_activity($course, $viewfullnames, $timestart) {
     return false;
-}
-
-/**
- * Prepares the recent activity data
- *
- * This callback function is supposed to populate the passed array with
- * custom activity records. These records are then rendered into HTML via
- * {@link onlyoffice_print_recent_mod_activity()}.
- *
- * Returns void, it adds items into $activities and increases $index.
- *
- * @param array $activities sequentially indexed array of objects with added 'cmid' property
- * @param int $index the index in the $activities to use for the next record
- * @param int $timestart append activity since this time
- * @param int $courseid the id of the course we produce the report for
- * @param int $cmid course module id
- * @param int $userid check for a particular user's activity only, defaults to 0 (all users)
- * @param int $groupid check for a particular group's activity only, defaults to 0 (all groups)
- */
-function onlyoffice_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid = 0, $groupid = 0) {
-    
-}
-
-/**
- * Prints single activity item prepared by {@link onlyoffice_get_recent_mod_activity()}
- *
- * @param stdClass $activity activity record with added 'cmid' property
- * @param int $courseid the id of the course we produce the report for
- * @param bool $detail print detailed report
- * @param array $modnames as returned by {@link get_module_types_names()}
- * @param bool $viewfullnames display users' full names
- */
-function onlyoffice_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
-    
 }
 
 /**
@@ -295,7 +245,6 @@ function onlyoffice_print_recent_mod_activity($activity, $courseid, $detail, $mo
 function onlyoffice_get_extra_capabilities() {
     return array();
 }
-
 /* File API */
 
 /**
@@ -338,7 +287,6 @@ function onlyoffice_get_file_info($browser, $areas, $course, $cm, $context, $fil
  * Serves the files from the onlyoffice file areas
  *
  * @package mod_onlyoffice
- * 
  * @param stdClass $course the course object
  * @param stdClass $cm the course module object
  * @param stdClass $context the onlyoffice's context
@@ -348,12 +296,11 @@ function onlyoffice_get_file_info($browser, $areas, $course, $cm, $context, $fil
  * @param array $options additional options affecting the file serving
  */
 function onlyoffice_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options = array()) {
-
     $doc = required_param('doc', PARAM_RAW);
 
     $crypt = new \mod_onlyoffice\crypt();
     list($hash, $error) = $crypt->read_hash($doc);
-    if ($error || ($hash == NULL)) {
+    if ($error || ($hash == null)) {
         return false;
     }
 
@@ -362,7 +309,9 @@ function onlyoffice_pluginfile($course, $cm, $context, $filearea, array $args, $
     $files = $fs->get_area_files($context->id, 'mod_onlyoffice', $filearea, false, 'sortorder DESC, id ASC', false, 0, 0, 1);
     if (count($files) >= 1) {
         $file = reset($files);
-        if ($hash->contenthash == $file->get_contenthash() && (is_enrolled($context, $hash->userid, '', true) || has_any_capability(['moodle/course:manageactivities', 'mod/onlyoffice:editdocument'], $context, $hash->userid))) {
+        if ($hash->contenthash == $file->get_contenthash()
+                && (is_enrolled($context, $hash->userid, '', true)
+                || has_any_capability(['moodle/course:manageactivities', 'mod/onlyoffice:editdocument'], $context, $hash->userid))) {
             send_stored_file($file, null, 0, true);
         }
     }

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -42,17 +41,17 @@ class crypt {
     public function __construct() {
         $this->appkey = util::get_appkey();
     }
-    
+
     public function get_hash($object) {
-        $primaryKey = json_encode($object);
-        $hash = $this->signature_create($primaryKey);
+        $primarykey = json_encode($object);
+        $hash = $this->signature_create($primarykey);
         return $hash;
     }
 
     public function read_hash($hash) {
-        $result = NULL;
-        $error = NULL;
-        if ($hash === NULL) {
+        $result = null;
+        $error = null;
+        if ($hash === null) {
             return [$result, "hash is empty"];
         }
         try {
@@ -64,16 +63,13 @@ class crypt {
 
                 if ($payloadparts[0] === $encode) {
                     $result = json_decode($payloadparts[1]);
-                }
-                else {
+                } else {
                     $error = "hash not equal";
                 }
-            }
-            else {
+            } else {
                 $error = "incorrect hash";
             }
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $error = $e->getMessage();
         }
         return [$result, $error];
