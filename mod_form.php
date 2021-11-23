@@ -82,8 +82,6 @@ class mod_onlyoffice_mod_form extends moodleform_mod {
 
         // @todo add grading capability. need use case for grading
 
-        // Add standard grading elements.
-        // $this->standard_grading_coursemodule_elements();
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 
