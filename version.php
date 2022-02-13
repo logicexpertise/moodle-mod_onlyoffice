@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_onlyoffice';
-$plugin->version = 2021112000;
-$plugin->release = 'v1.0';
+$plugin->version = 2022021303;
+$plugin->release = 'v3.10.8_6.4'; // <Moodle version>_<OnlyOffice version>
 $plugin->requires = 2017111301;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [];
