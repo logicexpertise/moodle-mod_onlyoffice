@@ -21,9 +21,11 @@
  * @author      Olumuyiwa Taiwo {@link https://moodle.org/user/view.php?id=416594}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
+if (!defined('AJAX_SCRIPT')) {
+    define('AJAX_SCRIPT', true);
+}
 
-defined('AJAX_SCRIPT') or define('AJAX_SCRIPT', true);
+require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 
 $courseid = required_param('courseid', PARAM_INT);
 $cmid = required_param('cmid', PARAM_INT);
