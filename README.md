@@ -2,6 +2,8 @@
 
 This plugin enables multiple users to collaboratively edit office documents from Moodle in real time using ONLYOFFICE Document Server [online editor](https://www.onlyoffice.com/editors.aspx), and to save back those changes back to Moodle.
 
+__The plugin can be downloaded from the Moodle plugins directory at https://moodle.org/plugins/mod_onlyoffice__
+
 Currently the following document formats can be edited with this plugin: 
 DOCX, XLSX, PPTX, TXT, CSV. 
 
