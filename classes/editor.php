@@ -99,6 +99,7 @@ class editor {
         $user['id'] = $USER->id;
         $user['name'] = \fullname($USER);
         $editorconfig['user'] = $user;
+        $editorconfig['lang'] = stristr($USER->lang, '_', true) !== false ? stristr($USER->lang, '_', true) : $USER->lang;
 
         // customization
         $customization = [];
