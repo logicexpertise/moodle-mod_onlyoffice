@@ -17,7 +17,8 @@
  * @copyright  2018 Olumuyiwa Taiwo <muyi.taiwo@logicexpertise.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+/*eslint no-unused-vars: off*/
+/*eslint no-undef: off*/
 
 define(['jquery'], function ($) {
     var displayError = function (error) {
