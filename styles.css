@@ -2,11 +2,15 @@
     display: inline-block;
 }
 
+.path-course-view .onlyoffice img.activityicon  {
+    padding: 4px;
+}
+
 .onlyoffice-container > iframe {
     height: 80vh;
     max-height: 60rem;
 }
 
 #onlyoffice-editor.error {
-    color: red;
+    color: var(--danger);
 }

@@ -182,7 +182,6 @@ function onlyoffice_get_coursemodule_info($coursemodule) {
             'sortorder DESC, id ASC', false, 0, 0, 1);
     if (count($files) >= 1) {
         $file = reset($files);
-        $info->icon = file_file_icon($file, 24);
         $onlyoffice->file = $file->get_filename();
     }
 
@@ -197,10 +196,9 @@ function onlyoffice_get_coursemodule_info($coursemodule) {
  */
 function onlyoffice_cm_info_view(cm_info $cm) {
     global $OUTPUT;
-    $icon = $OUTPUT->pix_icon('icon',
+    $icon = $OUTPUT->pix_icon('monologo',
             get_string('onlyofficeactivityicon', 'onlyoffice'), 'onlyoffice',
             array('class' => 'onlyofficeactivityicon'));
-    $cm->set_after_link(' ' . html_writer::tag('span', $icon));
 }
 
 /**
