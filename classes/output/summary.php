@@ -25,10 +25,9 @@
 
 namespace mod_onlyoffice\output;
 
-use renderable;
-use templatable;
-use renderer_base;
-use stdClass;
+use \core\output\renderable;
+use \core\output\templatable;
+use \core\output\renderer_base;
 
 /**
  * @todo Custom module instance display, similar to https://api.onlyoffice.com/editors/alfresco
@@ -45,7 +44,7 @@ class summary implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        $data = new stdClass();
+        $data = new \stdClass();
 
         // do some stuff
 

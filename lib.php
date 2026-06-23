@@ -65,7 +65,7 @@ function onlyoffice_supports($feature) {
  * @return int The id of the newly inserted onlyoffice record
  */
 function onlyoffice_add_instance(stdClass $data,
-        mod_onlyoffice_mod_form $mform = null) {
+        ?mod_onlyoffice_mod_form $mform = null) {
     global $CFG, $DB;
 
     $cmid = $data->coursemodule;
@@ -100,7 +100,7 @@ function onlyoffice_add_instance(stdClass $data,
  * @return boolean Success/Fail
  */
 function onlyoffice_update_instance(stdClass $data,
-        mod_onlyoffice_mod_form $mform = null) {
+        ?mod_onlyoffice_mod_form $mform = null) {
     global $CFG, $DB;
 
     $data->timemodified = time();

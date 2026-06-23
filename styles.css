@@ -14,3 +14,14 @@
 #onlyoffice-editor.error {
     color: var(--danger);
 }
+
+.onlyoffice .file-ext {
+    text-transform: uppercase;
+    color: var(--bs-body-color);
+    &::before {
+        content: '[';
+    }
+    &::after {
+        content: ']';
+    }
+}

@@ -27,7 +27,7 @@ namespace mod_onlyoffice\output;
 
 defined('MOODLE_INTERNAL') || die();
 
-use plugin_renderer_base;
+use \core\output\plugin_renderer_base;
 
 /**
  * @todo Custom module instance display, similar to https://api.onlyoffice.com/editors/alfresco
@@ -41,5 +41,4 @@ class renderer extends plugin_renderer_base {
         $data = $page->export_for_template($this);
         return parent::render_from_template('mod_onlyoffice/summary', $data);
     }
-
 }
